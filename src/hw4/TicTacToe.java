@@ -106,16 +106,103 @@ public class TicTacToe {
         field[rowNumber - 1][colNumber - 1] = DOT_X;
     }
 
+//    private static void ai(char[][] field){
+//        Random random = new Random();
+//        int size = field.length;
+//        int rowNumber,colNumber = 0;
+//        do{
+//            rowNumber = random.nextInt(size);
+//            colNumber = random.nextInt(size);
+//        }while (!isCellValid(field, rowNumber, colNumber));
+//        field[rowNumber][colNumber] = DOT_O;
+//    }
+
     private static void ai(char[][] field){
         Random random = new Random();
         int size = field.length;
-        int rowNumber,colNumber = 0;
-        do{
-            rowNumber = random.nextInt(size);
-            colNumber = random.nextInt(size);
-        }while (!isCellValid(field, rowNumber, colNumber));
-        field[rowNumber][colNumber] = DOT_O;
+        int[] lines = new int[size];
+        int[] column = new int[size];
+        int diag1 = 0;
+        int diag2 = 0;
+
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                if(field[i][j] == DOT_X){
+                    if(i == j){
+                        diag1++;
+                    }
+                    if(j == (size - 1 - i)){
+                        diag2++;
+                    }
+                    lines[i]++;
+                    column[j]++;
+                }
+
+                if(field[i][j] == DOT_O){
+                    if(i == j){
+                        diag1--;
+                    }
+                    if(j == (size - 1 - i)){
+                        diag2--;
+                    }
+
+                    lines[i]--;
+                    column[j]--;
+                }
+            }
+        }
+
+        for(int i = 0; i < size; i++ ){
+            int trigger = size - 1;
+            if(lines[i] == trigger){
+                for(int j = 0; j < size; j++){
+                    if(isCellValid(field, i, j)){
+                        field[i][j] = DOT_O;
+                        break;
+                    }
+                }
+                break;
+            }
+            if(column[i] == trigger){
+                for(int j = 0; j < size; j++){
+                    if(isCellValid(field, j, i)){
+                        field[j][i] = DOT_O;
+                        break;
+                    }
+                }
+                break;
+            }
+            if(diag1 == trigger){
+                for(int j = 0; j < size; j++){
+                    if(isCellValid(field, j, j)){
+                        field[j][j] = DOT_O;
+                        break;
+                    }
+                }
+                break;
+            }
+            if(diag2 == trigger){
+                for(int j = 0; j < size; j++){
+                    int k = trigger - j;
+                    if(isCellValid(field, j, k)){
+                        field[j][k] = DOT_O;
+                        break;
+                    }
+                }
+                break;
+            }
+            if(i == trigger) {
+                int rowNumber, colNumber = -1;
+                do {
+                    rowNumber = random.nextInt(size);
+                    colNumber = random.nextInt(size);
+                } while (!isCellValid(field, rowNumber, colNumber));
+                field[rowNumber][colNumber] = DOT_O;
+            }
+        }
     }
+
+
 
     private static boolean isCellValid(char[][] field, int rowNumber, int colNumber){
         char cell = field[rowNumber][colNumber];
