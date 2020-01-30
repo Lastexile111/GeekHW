@@ -40,7 +40,7 @@ public class TicTacToe {
                 break;
             }
 
-        }while(!(isWinner(field, DOT_X))||(isWinner(field, DOT_O)));
+        }while(!(isWinner(field, DOT_X)) && (isWinner(field, DOT_O)));
 
         if(isWinner(field, DOT_X)){
             System.out.println("Победил Игрок");
