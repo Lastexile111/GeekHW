@@ -1,8 +1,12 @@
 package hw5;
 
 public class Launcher {
+    private static final int MIN_AGE = 40;
+    private static final int EMPLOYEE_COUNT = 5;
+
+
     public static void main(String[] args) {
-        Employee[] emplArray = new Employee[5];
+        Employee[] emplArray = new Employee[EMPLOYEE_COUNT];
         emplArray[0]= new Employee("Ivanov Ivan", "Engineer",
                 "iviv@abc.com", "89123123123", 30000, 30);
         emplArray[1]= new Employee("Petrov Petr", "Engineer",
@@ -16,7 +20,7 @@ public class Launcher {
 
 
         for(Employee employee : emplArray){
-            if(employee.getAge() >= 40){
+            if(employee.getAge() >= MIN_AGE){
                 employee.info();
                 System.out.println("");
             }
